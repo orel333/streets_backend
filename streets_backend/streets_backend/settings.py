@@ -3,9 +3,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 
 env_path = Path('../infra') / '.env'
-
 load_dotenv(dotenv_path=env_path)
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -22,7 +20,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'blog.apps.BlogConfig',
+    'contacts.apps.ContactsConfig',
+    'blog.apps.BlogConfig'
 ]
 
 MIDDLEWARE = [
