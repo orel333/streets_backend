@@ -21,5 +21,9 @@ class Event(models.Model):
         verbose_name='Описание мероприятия'
     )
 
+    class Meta:
+        verbose_name = 'Мероприятие'
+        verbose_name_plural = 'Мероприятия'
+
     def __str__(self):
         return self.name
