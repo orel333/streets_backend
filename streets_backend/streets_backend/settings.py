@@ -21,7 +21,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'contacts.apps.ContactsConfig',
-    'blog.apps.BlogConfig'
+    'blog.apps.BlogConfig',
+    'events.apps.EventsConfig'
 ]
 
 MIDDLEWARE = [
