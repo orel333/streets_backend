@@ -23,6 +23,8 @@ INSTALLED_APPS = [
     'contacts.apps.ContactsConfig',
     'blog.apps.BlogConfig',
     'events.apps.EventsConfig'
+    'streetculture.apps.StreetCultureConfig',
+    'aboutus.apps.AboutusConfig',
 ]
 
 MIDDLEWARE = [
