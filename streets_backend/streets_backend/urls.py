@@ -4,6 +4,7 @@ from rest_framework import routers
 
 from contacts.views import ContactViewSet
 from blog.views import BlogPostViewSet
+from events.views import EventViewSet
 from aboutus.views import (AboutUsViewSet, FederalTeamViewSet,
                             RegionalTeamViewSet, PartnerTypeViewSet,
                             PartnerViewSet, GalleryViewSet, MediaViewSet)
