@@ -23,5 +23,14 @@ class Contact(models.Model):
         max_length=255,
         verbose_name='Фактический адрес'
     )
-    email = models.EmailField()
-    phone = models.CharField(max_length=20)
+    email = models.EmailField(
+        verbose_name='Email'
+    )
+    phone = models.CharField(
+        max_length=20,
+        verbose_name='Телефон'
+    )
+
+    class Meta:
+        verbose_name = 'Контакт'
+        verbose_name_plural = 'Контакты'
