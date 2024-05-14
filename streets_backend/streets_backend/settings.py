@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'streetculture.apps.StreetCultureConfig',
     'aboutus.apps.AboutusConfig',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
