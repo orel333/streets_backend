@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'contacts.apps.ContactsConfig',
     'blog.apps.BlogConfig',
+    'events.apps.EventsConfig',
     'streetculture.apps.StreetCultureConfig',
     'aboutus.apps.AboutusConfig',
     'drf_yasg',

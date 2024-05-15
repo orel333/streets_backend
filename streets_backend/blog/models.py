@@ -7,22 +7,22 @@ class BlogPost(models.Model):
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        verbose_name='Автор'
+        verbose_name='Автор поста'
     )
     title = models.CharField(
-        max_length=200,
-        verbose_name='Заголовок'
+        'Заголовок',
+        max_length=200
     )
     content = models.TextField(
-        verbose_name='Содержание'
+        'Содержание'
     )
     created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name='Дата создания'
+        'Дата создания',
+        auto_now_add=True
     )
     updated_at = models.DateTimeField(
-        auto_now=True,
-        verbose_name='Дата обновления'
+        'Дата обновления',
+        auto_now=True
     )
 
     class Meta:
