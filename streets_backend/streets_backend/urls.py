@@ -1,15 +1,18 @@
 from django.contrib import admin
 from django.urls import include, path, re_path
-from rest_framework import routers
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
-from rest_framework import permissions
 
-from contacts.views import ContactViewSet
-from blog.views import BlogPostViewSet
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions, routers
+
 from aboutus.views import (AboutUsViewSet, FederalTeamViewSet,
-                                     RegionalTeamViewSet, PartnerTypeViewSet,
-                                     PartnerViewSet, GalleryViewSet, MediaViewSet)
+                           GalleryViewSet, MediaViewSet, PartnerTypeViewSet,
+                           PartnerViewSet, RegionalTeamViewSet)
+from blog.views import BlogPostViewSet
+from contacts.views import ContactViewSet
+from streetculture.views import StreetCultureViewSet
+
+
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -34,6 +37,7 @@ router.register(r'v1/partnertype', PartnerTypeViewSet, basename='partnertype')
 router.register(r'v1/partner', PartnerViewSet, basename='partner')
 router.register(r'v1/gallery', GalleryViewSet, basename='gallery')
 router.register(r'v1/media', MediaViewSet, basename='media')
+router.register(r'v1/streetculture', StreetCultureViewSet, basename='streetculture')
 
 urlpatterns = [
      path('admin/', admin.site.urls),
