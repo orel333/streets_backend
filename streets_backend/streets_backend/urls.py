@@ -7,7 +7,7 @@ from rest_framework import permissions, routers
 
 from aboutus.views import (AboutUsViewSet, FederalTeamViewSet,
                            GalleryViewSet, MediaViewSet, PartnerTypeViewSet,
-                           PartnerViewSet, RegionalTeamViewSet)
+                           PartnerViewSet, RegionalTeamViewSet, RegionViewSet)
 from blog.views import BlogPostViewSet
 from contacts.views import ContactViewSet
 from streetculture.views import StreetCultureViewSet
