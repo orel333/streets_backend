@@ -4,21 +4,21 @@ from django.db import models
 class Event(models.Model):
     """Модель мероприятия для интерактивного календаря"""
     name = models.CharField(
-        max_length=255,
-        verbose_name='Название мероприятия'
+        'Название мероприятия',
+        max_length=255
     )
     time = models.TimeField(
-        verbose_name='Время проведения'
+        'Время проведения'
     )
     date = models.DateField(
-        verbose_name='Дата проведения'
+        'Дата проведения'
     )
     place = models.CharField(
-        max_length=255,
-        verbose_name='Место проведения'
+        'Место проведения',
+        max_length=255
     )
     description = models.TextField(
-        verbose_name='Описание мероприятия'
+        'Описание мероприятия'
     )
 
     class Meta:
