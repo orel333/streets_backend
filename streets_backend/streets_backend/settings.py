@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'events.apps.EventsConfig',
     'streetculture.apps.StreetCultureConfig',
     'aboutus.apps.AboutusConfig',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [

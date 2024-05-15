@@ -1,14 +1,32 @@
 from django.contrib import admin
-from django.urls import include, path
-from rest_framework import routers
+from django.urls import include, path, re_path
 
-from contacts.views import ContactViewSet
-from blog.views import BlogPostViewSet
-from events.views import EventViewSet
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions, routers
+
 from aboutus.views import (AboutUsViewSet, FederalTeamViewSet,
-                            RegionalTeamViewSet, PartnerTypeViewSet,
-                            PartnerViewSet, GalleryViewSet, MediaViewSet,
-                            RegionViewSet)
+                           GalleryViewSet, MediaViewSet, PartnerTypeViewSet,
+                           PartnerViewSet, RegionalTeamViewSet)
+from blog.views import BlogPostViewSet
+from contacts.views import ContactViewSet
+from streetculture.views import StreetCultureViewSet
+
+
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Your Project API",
+        default_version='v1',
+        description="API documentation for your project",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="contact@yourproject.local"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
+
 
 router = routers.DefaultRouter()
 router.register(r'v1/blog', BlogPostViewSet, basename='blog')
@@ -20,9 +38,14 @@ router.register(r'v1/partnertype', PartnerTypeViewSet, basename='partnertype')
 router.register(r'v1/partner', PartnerViewSet, basename='partner')
 router.register(r'v1/gallery', GalleryViewSet, basename='gallery')
 router.register(r'v1/media', MediaViewSet, basename='media')
+router.register(r'v1/streetculture', StreetCultureViewSet, basename='streetculture')
 router.register(r'v1/region', RegionViewSet, basename='region')
 
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include(router.urls)),
+     path('admin/', admin.site.urls),
+     path('', include(router.urls)),
+     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
