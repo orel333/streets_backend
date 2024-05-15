@@ -7,7 +7,8 @@ from blog.views import BlogPostViewSet
 from events.views import EventViewSet
 from aboutus.views import (AboutUsViewSet, FederalTeamViewSet,
                             RegionalTeamViewSet, PartnerTypeViewSet,
-                            PartnerViewSet, GalleryViewSet, MediaViewSet)
+                            PartnerViewSet, GalleryViewSet, MediaViewSet,
+                            RegionViewSet)
 
 router = routers.DefaultRouter()
 router.register(r'v1/blog', BlogPostViewSet, basename='blog')
@@ -19,6 +20,7 @@ router.register(r'v1/partnertype', PartnerTypeViewSet, basename='partnertype')
 router.register(r'v1/partner', PartnerViewSet, basename='partner')
 router.register(r'v1/gallery', GalleryViewSet, basename='gallery')
 router.register(r'v1/media', MediaViewSet, basename='media')
+router.register(r'v1/region', RegionViewSet, basename='region')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
