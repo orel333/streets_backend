@@ -1,16 +1,27 @@
+# Django 5.0.6
 import os
 from dotenv import load_dotenv
-from pathlib import Path
 
-env_path = Path('../infra') / '.env'
-load_dotenv(dotenv_path=env_path)
-BASE_DIR = Path(__file__).resolve().parent.parent
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+DOTENV_PATH = os.path.join(os.path.dirname(BASE_DIR), 'infra', '.env')
+
+load_dotenv(DOTENV_PATH)
 
 DEBUG = bool(os.getenv('DEBUG', default=False))
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv('SECRET_KEY', 'some_key')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = os.getenv('HOSTS', default='127.0.0.1').split(',')
+
+EMPTY_VALUE: str = '-пусто-'
+
+# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -26,6 +37,10 @@ INSTALLED_APPS = [
     'streetculture.apps.StreetCultureConfig',
     'aboutus.apps.AboutusConfig',
     'drf_yasg',
+    'rest_framework.authtoken',
+    'users.apps.UsersConfig'
+    'djoser',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
