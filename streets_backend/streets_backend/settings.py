@@ -1,27 +1,24 @@
 # Django 5.0.6
 import os
+
+from datetime import timedelta
 from dotenv import load_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-DOTENV_PATH = os.path.join(os.path.dirname(BASE_DIR), 'infra', '.env')
+DOTENV_PATH = os.path.join(BASE_DIR, 'infra', '.env')
 
 load_dotenv(DOTENV_PATH)
 
 DEBUG = bool(os.getenv('DEBUG', default=False))
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'some_key')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.getenv('DEBUG', default=False))
 
 ALLOWED_HOSTS = os.getenv('HOSTS', default='127.0.0.1').split(',')
 
 EMPTY_VALUE: str = '-пусто-'
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -31,14 +28,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
     'contacts.apps.ContactsConfig',
     'blog.apps.BlogConfig',
+    'users.apps.UsersConfig',
     'events.apps.EventsConfig',
     'streetculture.apps.StreetCultureConfig',
     'aboutus.apps.AboutusConfig',
     'drf_yasg',
-    'rest_framework.authtoken',
-    'users.apps.UsersConfig'
     'djoser',
     'django_filters'
 ]
@@ -76,7 +73,7 @@ WSGI_APPLICATION = 'streets_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -107,7 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'UTC'
 
@@ -118,3 +115,26 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+
+    'PAGE_SIZE': 5,
+
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
+
+AUTH_USER_MODEL = 'users.CustomUser'

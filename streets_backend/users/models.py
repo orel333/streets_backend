@@ -8,7 +8,7 @@ from django.db import models
 from rest_framework_simplejwt.tokens import AccessToken
 
 from streets_backend.settings import SECRET_KEY
-from validators import validate_birthday
+from .validators import validate_birthday
 
 formatter = logging.Formatter(
     '%(asctime)s %(levelname)s %(filename)s: '
@@ -111,7 +111,7 @@ class CustomUser(AbstractUser):
     role = models.CharField(
         'Роль',
         choices=ROLE_CHOICES,
-        default='user',
+        default='promoter',
         max_length=16
     )
     email = models.EmailField(
@@ -158,7 +158,7 @@ class CustomUser(AbstractUser):
         null=True,
         validators=(
             RegexValidator(
-                regex=r'^@[\w\d_]{5-32}$',
+                regex=r'^@[\w\d_]{5,32}$',
                 message=(
                     'Некорректный ник телеграм'
                 )
@@ -172,12 +172,12 @@ class CustomUser(AbstractUser):
         null=True,
         validators=(
             RegexValidator(
-                regex=r'^\+79\d{9}$',
+                regex=r'^89\d{9}$',
                 message=(
                     'Введите реальный мобильный телефон'
-                    'в формате +79XXXXXXXXX'
+                    'в формате 89XXXXXXXXX'
                 )
-            )
+            ),
         )
     )
     avatar = models.ImageField(
