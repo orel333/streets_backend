@@ -31,26 +31,7 @@ ROLE_CHOICES = (
 
 class CustomUserManager(BaseUserManager):
     def create_superuser(self, username, email, password, **other_fields):
-        logger.debug('SuperUser is being initialized...')
-        other_fields.setdefault('is_staff', True)
-        other_fields.setdefault('is_superuser', True)
-        other_fields.setdefault('is_active', True)
-        if other_fields.get('is_staff') is not True:
-            raise ValueError(
-                '"is_staff" суперпользователя должно быть в режиме "True"'
-            )
-        if other_fields.get('is_superuser') is not True:
-            raise ValueError(
-                '"is_superuser" суперпользователя должно быть в режиме "True"'
-            )
-        logger.debug(
-            f'Here are some other fields in parameters: {other_fields}'
-        )
-        if 'role' in other_fields:
-            role = other_fields.get('role')
-            del other_fields['role']
-        else:
-            role = 'admin'
+        role = 'admin'
 
         return self.create_user(
             username,
@@ -68,16 +49,6 @@ class CustomUserManager(BaseUserManager):
         password=None,
         **other_fields
     ):
-        logger.debug(f'Got role: {role}')
-        logger.debug(f'Got password: {password}')
-        logger.debug(f'Is_staff: {other_fields.get("is_staff")}')
-        logger.debug(f'Is_superuser: {other_fields.get("is_superuser")}')
-        logger.debug('Create user func was initiated')
-        if not email:
-            raise ValueError('Необходимо указать email')
-        if not username:
-            raise ValueError('Необходимо указать username')
-
         email = self.normalize_email(email)
         user = self.model(
             email=email,
@@ -94,20 +65,18 @@ class CustomUserManager(BaseUserManager):
             first_line = f'Создан суперпользователь {username}.'
         else:
             first_line = f'Создан пользователь {username}.'
-        # при запуске в производство поставить отправку по почте
-        logger.debug(
+        print(
             f'{first_line}\nЕго роль: {role}.'
             f'Его токен: {token}\n'
             f'Его confirmation_code для обновления токена:\n'
             f'{confirmation_code}'
         )
-        logger.debug(f'user_if_staff:{user.is_staff}')
         return user
 
 
 class CustomUser(AbstractUser):
     """Кастомная модель пользователя."""
-    bio = models.TextField('Дополнительная информация', blank=True)
+    bio = models.TextField('Дополнительная информация', blank=True, null=True)
     role = models.CharField(
         'Роль',
         choices=ROLE_CHOICES,
@@ -115,12 +84,11 @@ class CustomUser(AbstractUser):
         max_length=16
     )
     email = models.EmailField(
-        'E-MAIL',
-        unique=True,
-        blank=False,
-        null=True
+        'E-mail',
+        unique=True
     )
     username = models.CharField(
+        'Имя пользователя',
         max_length=150,
         unique=True,
         validators=(
@@ -134,17 +102,20 @@ class CustomUser(AbstractUser):
             ),
         ),
     )
-    surname = models.CharField(
+    last_name = models.CharField(
         'Фамилия',
-        max_length=150
+        max_length=150,
+        null=True
     )
     first_name = models.CharField(
         'Имя',
-        max_length=150
+        max_length=150,
+        null=True
     )
     third_name = models.CharField(
         'Отчество',
-        max_length=150
+        max_length=150,
+        null=True
     )
     birth_date = models.DateField(
         'День рождения',
@@ -182,8 +153,7 @@ class CustomUser(AbstractUser):
     )
     avatar = models.ImageField(
         'Аватар',
-        null=True,
-        
+        null=True
     )
     objects = CustomUserManager()
 
