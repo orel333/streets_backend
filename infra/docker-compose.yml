@@ -1,15 +1,5 @@
 volumes:
   pg_data:
-<<<<<<< HEAD
-
-volumes:
-  pg_data:
-=======
->>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
-
-volumes:
-  pg_data:
-
 
 services:
   db:
