@@ -17,7 +17,7 @@ DEBUG = bool(os.getenv('DEBUG', default=False))
 
 EMPTY_VALUE: str = '-пусто-'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',') if os.getenv('ALLOWED_HOSTS') else []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
