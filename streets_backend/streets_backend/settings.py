@@ -5,7 +5,8 @@ from datetime import timedelta
 from dotenv import load_dotenv
 from pathlib import Path
 
-load_dotenv()
+env_path = Path(os.getenv('ENV_PATH'))
+load_dotenv(dotenv_path=env_path)
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 BASE_URL = os.getenv('BASE_URL')
@@ -16,7 +17,7 @@ DEBUG = bool(os.getenv('DEBUG', default=False))
 
 EMPTY_VALUE: str = '-пусто-'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -74,7 +75,7 @@ DATABASES = {
         'NAME': os.getenv('POSTGRES_DB'),
         'USER': os.getenv('POSTGRES_USER'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-        'HOST': 'db',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }

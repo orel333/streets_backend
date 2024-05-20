@@ -4,7 +4,6 @@ volumes:
 volumes:
   pg_data:
 
-
 services:
   db:
     container_name: streets_db
