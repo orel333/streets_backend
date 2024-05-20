@@ -6,11 +6,13 @@ env_path = Path(os.getenv('ENV_PATH'))
 load_dotenv(dotenv_path=env_path)
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+BASE_URL = os.getenv('BASE_URL')
+
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = bool(os.getenv('DEBUG', default=False))
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '95.163.230.143', 'hackathonteam3.ru']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
