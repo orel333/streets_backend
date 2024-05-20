@@ -7,6 +7,10 @@ volumes:
 =======
 >>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
 
+volumes:
+  pg_data:
+
+
 services:
   db:
     container_name: streets_db
