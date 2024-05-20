@@ -5,14 +5,9 @@ from datetime import timedelta
 from dotenv import load_dotenv
 from pathlib import Path
 
-<<<<<<< HEAD
 dotenv_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'infra', '.env')
 load_dotenv(dotenv_path)
 
-=======
-env_path = Path(os.getenv('ENV_PATH'))
-load_dotenv(dotenv_path=env_path)
->>>>>>> ffedaf4 (Доработан docker-compose.yml, .env.example)
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 BASE_URL = os.getenv('BASE_URL')
@@ -22,11 +17,15 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = bool(os.getenv('DEBUG', default=False))
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 EMPTY_VALUE: str = '-пусто-'
 
 =======
 >>>>>>> ffedaf4 (Доработан docker-compose.yml, .env.example)
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+=======
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '95.163.230.143', 'hackathonteam3.ru']
+>>>>>>> 98d9a8e (Отправка на PR.)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
