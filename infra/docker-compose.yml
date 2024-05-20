@@ -1,8 +1,5 @@
-version: '3.8'
-
 volumes:
   pg_data:
-
 
 services:
   db:
@@ -12,12 +9,12 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
 
-  backend:
+  streets_backend:
     container_name: streets_backend
+    image: d1g1tsdocker/streets_backend:latest
     env_file:
       - ./.env
-    build: ./backend/
-    image: streets_backend
+    build: /home/ubuntu/streets_backend/
     command: python /app/streets_backend/manage.py runserver 0.0.0.0:8000
     volumes:
       - pg_data:/var/lib/postgresql/data
