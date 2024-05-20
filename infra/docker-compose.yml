@@ -1,10 +1,6 @@
 volumes:
   pg_data:
 
-volumes:
-  pg_data:
-
-
 services:
   db:
     container_name: streets_db
@@ -13,7 +9,6 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
 
-<<<<<<< HEAD
   streets_backend:
     container_name: streets_backend
     image: d1g1tsdocker/streets_backend:latest
@@ -26,16 +21,3 @@ services:
       - pg_data:/var/lib/postgresql/data
     ports:
       - 8000:8000
-=======
-  backend:
-    container_name: streets_backend
-    env_file:
-      - ./.env
-    build: ./backend/
-    image: streets_backend
-    command: python /app/streets_backend/manage.py runserver 0.0.0.0:8000
-    volumes:
-      - pg_data:/var/lib/postgresql/data
-    ports:
-      - 8000:8000
->>>>>>> de5f399 (Доработан docker-compose.yml. Добавлен волюм с базой PostgreSQL. Настройки PostgreSQL внесены в .env.example, settings.py.)
