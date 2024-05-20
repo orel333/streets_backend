@@ -16,16 +16,9 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = bool(os.getenv('DEBUG', default=False))
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 EMPTY_VALUE: str = '-пусто-'
 
-=======
->>>>>>> ffedaf4 (Доработан docker-compose.yml, .env.example)
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
-=======
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '95.163.230.143', 'hackathonteam3.ru']
->>>>>>> 98d9a8e (Отправка на PR.)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
