@@ -1,14 +1,25 @@
 version: '3.8'
 
+volumes:
+  pg_data:
+
+
 services:
-  web:
-    container_name: streets_backend
-    build: ../
-    image: streets_backend
-    command: python /app/manage.py runserver 0.0.0.0:8000
+  db:
+    container_name: streets_db
+    image: postgres:13.10
+    env_file: .env
     volumes:
-      - ../streets_backend/:/app
-    ports:
-      - 8000:8000
+      - pg_data:/var/lib/postgresql/data
+
+  backend:
+    container_name: streets_backend
     env_file:
       - ./.env
+    build: ./backend/
+    image: streets_backend
+    command: python /app/streets_backend/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - 8000:8000
