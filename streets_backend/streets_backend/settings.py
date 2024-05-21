@@ -1,16 +1,13 @@
-# Django 5.0.6
 import os
 
 from datetime import timedelta
 from dotenv import load_dotenv
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+env_path = Path(os.getenv('ENV_PATH'))
+load_dotenv(dotenv_path=env_path)
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-DOTENV_PATH = os.path.join(BASE_DIR, 'infra', '.env')
-
-load_dotenv(DOTENV_PATH)
-
-DEBUG = bool(os.getenv('DEBUG', default=False))
+BASE_URL = os.getenv('BASE_URL')
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
@@ -72,8 +69,12 @@ WSGI_APPLICATION = 'streets_backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
