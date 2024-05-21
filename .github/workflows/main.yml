@@ -37,6 +37,7 @@ jobs:
         host: 95.163.230.143
         username: ubuntu
         key: ${{ secrets.REMOTE_SSH_KEY }}
+        passphrase: ${{ secrets.REMOTE_SSH_PASSPHRASE }}
         script: |
           docker-compose pull streets_backend
           docker-compose up -d
