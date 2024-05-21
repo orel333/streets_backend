@@ -44,14 +44,14 @@ jobs:
 
       - name: Run docker-compose
         run: |
-          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
-          echo "DEBUG=${{ secrets.DEBUG }}" >> .env
-          echo "ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }}" >> .env
-          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env
-          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .env
-          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
-          echo "ENV_PATH=${{ secrets.ENV_PATH }}" >> .env
-          echo "BASE_URL=${{ secrets.BASE_URL }}" >> .env
+          echo "SECRET_KEY=django-insecure-_cc7m@+c00f$$x58b@h_2*nifktdx#$$!al!_s_0888*w5c$$-u4n" >> .env
+          echo "DEBUG=True" >> .env
+          echo "ALLOWED_HOSTS=localhost,127.0.0.1,95.163.230.143,hackathonteam3.ru" >> .env
+          echo "POSTGRES_DB=your_database_name" >> .env
+          echo "POSTGRES_USER=your_postgres_user" >> .env
+          echo "POSTGRES_PASSWORD=your_postgres_password" >> .env
+          echo "ENV_PATH=/home/ubuntu/streets_backend/infra/.env" >> .env
+          echo "BASE_URL=95.163.230.143" >> .env
           cd infra
           docker-compose -f docker-compose.workflows.yml up -d
 
