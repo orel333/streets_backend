@@ -44,7 +44,7 @@ jobs:
 
       - name: Start PostgreSQL with docker-compose
         run: |
-          docker-compose -f infra/docker-compose.yml up -d
+          docker-compose -f infra/docker-compose.workflows.yml up -d
 
       - name: Set migrations
         run: |
