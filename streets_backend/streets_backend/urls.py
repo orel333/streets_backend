@@ -11,6 +11,7 @@ from aboutus.views import (AboutUsViewSet, FederalTeamViewSet,
                            PartnerViewSet, RegionalTeamViewSet, RegionViewSet)
 from blog.views import BlogPostViewSet
 from contacts.views import ContactViewSet
+from events.views import EventViewSet, CoordinatesViewSet, EventLocationViewSet
 from streetculture.views import StreetCultureViewSet
 
 schema_view = get_schema_view(
@@ -38,6 +39,9 @@ router.register(settings.BASE_URL + '/v1/gallery', GalleryViewSet, basename='gal
 router.register(settings.BASE_URL + '/v1/media', MediaViewSet, basename='media')
 router.register(settings.BASE_URL + '/v1/streetculture', StreetCultureViewSet, basename='streetculture')
 router.register(settings.BASE_URL + '/v1/region', RegionViewSet, basename='region')
+router.register(settings.BASE_URL + '/v1/event', EventViewSet, basename='event')
+router.register(settings.BASE_URL + '/v1/eventlocation', EventLocationViewSet, basename='eventlocation')
+router.register(settings.BASE_URL + '/v1/coordinates', CoordinatesViewSet, basename='coordinates')
 
 urlpatterns = [
      path('admin/', admin.site.urls),

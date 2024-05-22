@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - feature/workflows
+      - develop
 
 jobs:
   build_and_push:
@@ -115,6 +115,7 @@ jobs:
   deploy:
     needs: build_and_push
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop'
 
     steps:
     - name: executing remote ssh commands to deploy

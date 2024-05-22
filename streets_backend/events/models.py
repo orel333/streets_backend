@@ -80,3 +80,50 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Coordinates(models.Model):
+    """Модель для хранения координат места проведения мероприятия"""
+    latitude = models.DecimalField(
+        'Широта',
+        max_digits=9,
+        decimal_places=6
+    )
+    longitude = models.DecimalField(
+        'Долгота',max_digits=9,
+        decimal_places=6
+    )
+
+    class Meta:
+        verbose_name = 'Координаты'
+        verbose_name_plural = 'Координаты'
+
+    def __str__(self):
+        return f"{self.latitude}, {self.longitude}"
+
+
+class EventLocation(models.Model):
+    """Модель места проведения мероприятия"""
+    name = models.CharField(
+        'Название места',
+        max_length=255
+    )
+    description = models.TextField(
+        'Описание места'
+    )
+    address = models.CharField(
+        'Адрес',
+        max_length=255
+    )
+    coordinates = models.ForeignKey(
+        Coordinates,
+        on_delete=models.CASCADE,
+        verbose_name='Координаты'
+    )
+
+    class Meta:
+        verbose_name = 'Место проведения мероприятия'
+        verbose_name_plural = 'Места проведения мероприятий'
+
+    def __str__(self):
+        return self.name
