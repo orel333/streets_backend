@@ -5,9 +5,7 @@ from datetime import timedelta
 from dotenv import load_dotenv
 from pathlib import Path
 
-dotenv_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'infra', '.env')
-load_dotenv(dotenv_path)
-
+load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 BASE_URL = os.getenv('BASE_URL')
