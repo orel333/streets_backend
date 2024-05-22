@@ -3,8 +3,8 @@ import os
 from datetime import timedelta
 from dotenv import load_dotenv
 
-env_path = Path(os.getenv('ENV_PATH'))
-load_dotenv(dotenv_path=env_path)
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 BASE_URL = os.getenv('BASE_URL')

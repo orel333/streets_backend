@@ -140,7 +140,3 @@ class UserAdminConfig(UserAdmin):
     
     def has_view_permission(self, request, obj=None):
         return request.user.is_staff
-    
-
-        
-
