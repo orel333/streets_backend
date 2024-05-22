@@ -83,17 +83,6 @@ class UserAdminConfig(UserAdmin):
                 'role',
                 'username',
                 'email',
-                'avatar',
-                'role',
-                'username',
-                'email',
-                'first_name',
-                'surname',
-                'third_name',
-                'bio',
-                'birth_date',
-                'tg_nick',
-                'phone',
                 'password1',
                 'password2'
             )

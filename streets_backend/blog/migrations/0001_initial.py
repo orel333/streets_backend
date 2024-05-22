@@ -38,5 +38,9 @@ class Migration(migrations.Migration):
                 ('region', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='aboutus.region')),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Автор поста')),
             ],
+            options={
+                'verbose_name': 'Пост блога',
+                'verbose_name_plural': 'Посты блога',
+            },
         ),
     ]
