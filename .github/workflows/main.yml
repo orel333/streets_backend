@@ -3,7 +3,11 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
+<<<<<<< HEAD
       - develop
+=======
+      - feature/workflows
+>>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
 
 jobs:
   build_and_push:
@@ -26,6 +30,7 @@ jobs:
         push: true
         tags: d1g1tsdocker/streets_backend:latest
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
       # - name: run flake8
@@ -116,6 +121,11 @@ jobs:
     needs: build_and_push
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/develop'
+=======
+  deploy:
+    needs: build_and_push
+    runs-on: ubuntu-latest
+>>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
 
     steps:
     - name: executing remote ssh commands to deploy

@@ -1,4 +1,5 @@
 from django.db import models
+<<<<<<< HEAD
 
 from aboutus.models import Region
 from users.models import CustomUser
@@ -9,6 +10,9 @@ POST_CHOICES = (
     ('reg news', 'Региональная новость'),
     ('fed news', 'Федеральная новость')
 )
+=======
+from users.models import CustomUser
+>>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
 
 
 class BlogPost(models.Model):
