@@ -19,7 +19,7 @@ handler = logging.StreamHandler(sys.stdout)
 logger.addHandler(handler)
 handler.setFormatter(formatter)
 logger.disabled = False
-logger.debug('Логирование из admin.users запущено')
+logger.debug('Логирование из users.admin запущено')
 
 # отключение отображения в админ-панели раздела 'пользователи и группы'
 admin.site.unregister(Group)
@@ -39,15 +39,20 @@ class UserAdminConfig(UserAdmin):
 
     fieldsets = (
         ('Key fields', {
-            'fields': ('username', 'email', 'password')
+            'fields': ('avatar', 'username', 'email', 'password')
         }),
         ('Personal info', {
             'fields': (
-                'first_name', 'last_name'
+                'first_name', 'last_name', 'third_name', 'bio', 'birth_date'
+            ), 'classes': ('collapse',)
+        }),
+        ('Contact info', {
+            'fields': (
+                'tg_nick', 'phone'
             ), 'classes': ('collapse',)
         }),
         ('Permissions', {
-            'fields': ('is_staff', 'is_active'),
+            'fields': ('role', 'is_staff', 'is_active', 'is_superuser'),
         }),
     )
 
@@ -63,17 +68,8 @@ class UserAdminConfig(UserAdmin):
         (None, {
             'classes': ('extrapretty',),
             'fields': (
-                'avatar',
-                'role',
                 'username',
                 'email',
-                'first_name',
-                'surname',
-                'third_name',
-                'bio',
-                'birth_date',
-                'tg_nick',
-                'phone',
                 'password1',
                 'password2'
             )
@@ -122,3 +118,29 @@ class UserAdminConfig(UserAdmin):
             logger.debug(f'user is staff: {obj.is_staff}')
         else:
             super().save_model(request, obj, form, change)
+
+    def get_fieldsets(self, request, obj=None):
+        """Кастомизированное отображение полей."""
+    
+    def has_module_permission(self, request):
+        return True
+
+    def has_delete_permission(self, request, obj=None):
+        """Разрешение на удаление."""
+        # TODO сделать проверку на авторство для удаления
+        if obj:
+            request_user = request.user
+            if isinstance(obj, CustomUser):
+            # return request.user.is_staff and not obj.is_staff
+                return (
+                    request_user.is_superuser or
+                    (request_user.role == 'admin' and obj.role == 'promoter')
+                )
+            return request_user.role in ('admin', 'promoter')
+    
+    def has_view_permission(self, request, obj=None):
+        return request.user.is_staff
+    
+
+        
+
