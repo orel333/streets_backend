@@ -1,11 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import User
+from users.models import CustomUser
 
 
 class BlogPost(models.Model):
     '''Модель для постов в блоге'''
     author = models.ForeignKey(
-        User,
+        CustomUser,
         on_delete=models.CASCADE,
         verbose_name='Автор поста'
     )
