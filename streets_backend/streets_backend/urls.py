@@ -40,6 +40,7 @@ router.register(settings.BASE_URL + '/v1/gallery', GalleryViewSet, basename='gal
 router.register(settings.BASE_URL + '/v1/media', MediaViewSet, basename='media')
 router.register(settings.BASE_URL + '/v1/streetculture', StreetCultureViewSet, basename='streetculture')
 router.register(settings.BASE_URL + '/v1/region', RegionViewSet, basename='region')
+<<<<<<< HEAD
 router.register(settings.BASE_URL + '/v1/event', EventViewSet, basename='event')
 router.register(settings.BASE_URL + '/v1/eventlocation', EventLocationViewSet, basename='eventlocation')
 router.register(settings.BASE_URL + '/v1/coordinates', CoordinatesViewSet, basename='coordinates')
@@ -65,3 +66,13 @@ urlpatterns = [
     path('v1/login', MyAuth.as_view(), name='login'),
     path('v1/logout', MyUnAuth.as_view(), name='logout'),
 ]
+=======
+
+urlpatterns = [
+     path('admin/', admin.site.urls),
+     path('', include(router.urls)),
+     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+]
+>>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)

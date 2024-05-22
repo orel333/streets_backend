@@ -7,6 +7,7 @@ from django.core.validators import RegexValidator
 from django.db import models
 from rest_framework_simplejwt.tokens import AccessToken
 from aboutus.models import Region
+from streets_backend.settings import SECRET_KEY
 from .validators import validate_birthday
 
 formatter = logging.Formatter(

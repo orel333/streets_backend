@@ -32,22 +32,14 @@ class UserAdminConfig(UserAdmin):
         'email',
         'first_name',
         'last_name',
-<<<<<<< HEAD
-<<<<<<< HEAD
         'role',
         'is_active'
-=======
->>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
-=======
->>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
     )
     search_fields = ('username', 'email')
 
     list_filter = ('email', 'username', 'is_superuser', 'is_staff')
 
     fieldsets = (
-<<<<<<< HEAD
-<<<<<<< HEAD
         ('Ключевая информация', {
             'fields': ('avatar', 'username', 'email', 'password')
         }),
@@ -62,10 +54,7 @@ class UserAdminConfig(UserAdmin):
             ), 'classes': ('collapse',)
         }),
         ('Доступ', {
-            'fields': ('role', 'is_staff', 'is_active', 'is_superuser'),
-=======
-=======
->>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
+            'fields': ('role', 'is_staff', 'is_active', 'is_superuser')}),
         ('Key fields', {
             'fields': ('username', 'email', 'password')
         }),
@@ -76,10 +65,6 @@ class UserAdminConfig(UserAdmin):
         }),
         ('Permissions', {
             'fields': ('is_staff', 'is_active'),
-<<<<<<< HEAD
->>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
-=======
->>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
         }),
     )
 
@@ -95,14 +80,9 @@ class UserAdminConfig(UserAdmin):
         (None, {
             'classes': ('extrapretty',),
             'fields': (
-<<<<<<< HEAD
-<<<<<<< HEAD
                 'role',
                 'username',
                 'email',
-=======
-=======
->>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
                 'avatar',
                 'role',
                 'username',
@@ -114,10 +94,6 @@ class UserAdminConfig(UserAdmin):
                 'birth_date',
                 'tg_nick',
                 'phone',
-<<<<<<< HEAD
->>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
-=======
->>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
                 'password1',
                 'password2'
             )
@@ -132,8 +108,6 @@ class UserAdminConfig(UserAdmin):
             logger.debug('The object was recognized as CustomUser instance')
             super().save_model(request, obj, form, change)
             user_role = obj.role
-<<<<<<< HEAD
-<<<<<<< HEAD
             logger.debug('user\'s role: %s', user_role)
             username = obj.username
             if user_role in (
@@ -141,21 +115,11 @@ class UserAdminConfig(UserAdmin):
                 'fed manager',
                 'reg manager'
             ):
-=======
-            username = obj.username
-            if user_role in ('admin', 'promoter'):
->>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
-=======
-            username = obj.username
-            if user_role in ('admin', 'promoter'):
->>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
                 obj.is_staff = True
             # на случай изменения объекта
             else:
                 obj.is_staff = False
             obj.save()
-<<<<<<< HEAD
-<<<<<<< HEAD
             if change:
                 if obj.is_superuser:
                     logger.debug(
@@ -174,35 +138,6 @@ class UserAdminConfig(UserAdmin):
             # при запуске в производство поставить отправку по почте
             logger.debug(
                 f'Его роль: {user_role}.\n'
-=======
-=======
->>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
-            confirmation_code = obj.confirmation_code
-            token = obj.token
-            if change:
-                if obj.is_superuser:
-                    pre_first_line = (f'\tВНИМАНИЕ! Объект был изменен на '
-                                      f'"суперпользователь {username}".')
-                else:
-                    pre_first_line = (f'\tВНИМАНИЕ! Объект был изменен на '
-                                      f'"пользователь {username}".')
-                first_line = (f'{pre_first_line}\n\tДля него были '
-                              'созданы новые коды доступа.')
-            else:
-                if obj.is_superuser:
-                    first_line = f'Создан суперпользователь {username}.'
-                else:
-                    first_line = f'Создан пользователь {username}.'
-            # при запуске в производство поставить отправку по почте
-            logger.debug(
-                f'{first_line}\nЕго роль: {user_role}.\n'
-                f'Его токен: {token}\n'
-                f'Его confirmation_code для обновления токена:\n'
-                f'{confirmation_code}'
-<<<<<<< HEAD
->>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
-=======
->>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
             )
             logger.debug(f'user is active: {obj.is_active}')
             logger.debug(f'user is staff: {obj.is_staff}')
