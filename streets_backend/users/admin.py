@@ -33,8 +33,11 @@ class UserAdminConfig(UserAdmin):
         'first_name',
         'last_name',
 <<<<<<< HEAD
+<<<<<<< HEAD
         'role',
         'is_active'
+=======
+>>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
 =======
 >>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
     )
@@ -43,6 +46,7 @@ class UserAdminConfig(UserAdmin):
     list_filter = ('email', 'username', 'is_superuser', 'is_staff')
 
     fieldsets = (
+<<<<<<< HEAD
 <<<<<<< HEAD
         ('Ключевая информация', {
             'fields': ('avatar', 'username', 'email', 'password')
@@ -60,6 +64,8 @@ class UserAdminConfig(UserAdmin):
         ('Доступ', {
             'fields': ('role', 'is_staff', 'is_active', 'is_superuser'),
 =======
+=======
+>>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
         ('Key fields', {
             'fields': ('username', 'email', 'password')
         }),
@@ -70,6 +76,9 @@ class UserAdminConfig(UserAdmin):
         }),
         ('Permissions', {
             'fields': ('is_staff', 'is_active'),
+<<<<<<< HEAD
+>>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
+=======
 >>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
         }),
     )
@@ -87,10 +96,13 @@ class UserAdminConfig(UserAdmin):
             'classes': ('extrapretty',),
             'fields': (
 <<<<<<< HEAD
+<<<<<<< HEAD
                 'role',
                 'username',
                 'email',
 =======
+=======
+>>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
                 'avatar',
                 'role',
                 'username',
@@ -102,6 +114,9 @@ class UserAdminConfig(UserAdmin):
                 'birth_date',
                 'tg_nick',
                 'phone',
+<<<<<<< HEAD
+>>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
+=======
 >>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
                 'password1',
                 'password2'
@@ -118,6 +133,7 @@ class UserAdminConfig(UserAdmin):
             super().save_model(request, obj, form, change)
             user_role = obj.role
 <<<<<<< HEAD
+<<<<<<< HEAD
             logger.debug('user\'s role: %s', user_role)
             username = obj.username
             if user_role in (
@@ -129,11 +145,16 @@ class UserAdminConfig(UserAdmin):
             username = obj.username
             if user_role in ('admin', 'promoter'):
 >>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
+=======
+            username = obj.username
+            if user_role in ('admin', 'promoter'):
+>>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
                 obj.is_staff = True
             # на случай изменения объекта
             else:
                 obj.is_staff = False
             obj.save()
+<<<<<<< HEAD
 <<<<<<< HEAD
             if change:
                 if obj.is_superuser:
@@ -154,6 +175,8 @@ class UserAdminConfig(UserAdmin):
             logger.debug(
                 f'Его роль: {user_role}.\n'
 =======
+=======
+>>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
             confirmation_code = obj.confirmation_code
             token = obj.token
             if change:
@@ -176,6 +199,9 @@ class UserAdminConfig(UserAdmin):
                 f'Его токен: {token}\n'
                 f'Его confirmation_code для обновления токена:\n'
                 f'{confirmation_code}'
+<<<<<<< HEAD
+>>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
+=======
 >>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
             )
             logger.debug(f'user is active: {obj.is_active}')

@@ -5,9 +5,13 @@ from datetime import timedelta
 from dotenv import load_dotenv
 from pathlib import Path
 
+<<<<<<< HEAD
 dotenv_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'infra', '.env')
 load_dotenv(dotenv_path)
 
+=======
+load_dotenv()
+>>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 BASE_URL = os.getenv('BASE_URL')
@@ -18,7 +22,11 @@ DEBUG = bool(os.getenv('DEBUG', default=False))
 
 EMPTY_VALUE: str = '-пусто-'
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+=======
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
+>>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -28,8 +36,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+<<<<<<< HEAD
     'rest_framework.authtoken',
     'myauth.apps.MyauthConfig',
+=======
+    'rest_framework_simplejwt',
+>>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
     'contacts.apps.ContactsConfig',
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
@@ -126,16 +138,33 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
+<<<<<<< HEAD
         'rest_framework.authentication.TokenAuthentication',
+=======
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+>>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
     ],
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
     ],
+<<<<<<< HEAD
     'DEFAULT_PAGINATION_CLASS': (
         'rest_framework.pagination.PageNumberPagination'
     ),
+=======
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+
+>>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
     'PAGE_SIZE': 5,
 
 }
 
+<<<<<<< HEAD
+=======
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
+
+>>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
 AUTH_USER_MODEL = 'users.CustomUser'
