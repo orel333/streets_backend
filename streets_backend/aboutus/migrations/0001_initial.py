@@ -105,17 +105,5 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Партнер проекта',
                 'verbose_name_plural': 'Партнеры проекта',
             },
-        ),
-        migrations.CreateModel(
-            name='Media',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('file', models.FileField(upload_to='media/', verbose_name='Файл медиа')),
-                ('gallery', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='aboutus.gallery', verbose_name='Галерея')),
-            ],
-            options={
-                'verbose_name': 'Медиа',
-                'verbose_name_plural': 'Медиа',
-            },
         )
     ]
