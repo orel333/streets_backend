@@ -38,5 +38,6 @@ jobs:
         username: root
         password: ${{ secrets.REMOTE_SSH_PASSWORD }}
         script: |
+          cd /home/ubuntu/streets_backend/infra
           docker-compose pull streets_backend
           docker-compose up -d
