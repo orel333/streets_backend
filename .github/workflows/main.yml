@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - develop
-  pull_request:
-    branches:
-      - develop
 
 jobs:
   build_and_push:
@@ -43,7 +40,7 @@ jobs:
         password: ${{ secrets.REMOTE_SSH_PASSWORD }}
         script: |
           cd /home/ubuntu/streets_backend/infra
-          docker stop $(docker ps -a -q)
-          docker rm $(docker ps -a -q)
+          docker ps -q && docker stop $(docker ps -q)
+          docker ps -aq && docker rm $(docker ps -aq)
           docker-compose up -d
           docker exec streets_backend python streets_backend/manage.py migrate
