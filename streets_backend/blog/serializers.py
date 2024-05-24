@@ -43,7 +43,6 @@ class BlogPostSerializer(serializers.ModelSerializer):
         ]
 
     def validate_image(self, value):
-        # оказывается, это сразу размер в байтах
         length = len(value)
         length_mb = round(length / 1048576, 2)
         if length_mb > 8:
