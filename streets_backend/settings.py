@@ -3,6 +3,7 @@ import os
 from datetime import timedelta
 from dotenv import load_dotenv
 from pathlib import Path
+from pathlib import Path
 
 dotenv_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'infra', '.env')
 load_dotenv(dotenv_path)
@@ -17,7 +18,7 @@ DEBUG = bool(os.getenv('DEBUG', default=False))
 
 EMPTY_VALUE: str = '-пусто-'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',') if os.getenv('ALLOWED_HOSTS') else []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -26,17 +27,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drf_yasg',
+    'djoser',
+    'django_filters',
     'rest_framework',
     'rest_framework_simplejwt',
+    'aboutus.apps.AboutusConfig',
     'contacts.apps.ContactsConfig',
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
     'events.apps.EventsConfig',
     'streetculture.apps.StreetCultureConfig',
-    'aboutus.apps.AboutusConfig',
-    'drf_yasg',
-    'djoser',
-    'django_filters'
 ]
 
 MIDDLEWARE = [

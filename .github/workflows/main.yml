@@ -42,4 +42,3 @@ jobs:
           docker stop $(docker ps -a -q)
           docker rm $(docker ps -a -q)
           docker-compose up -d
-          docker exec streets_backend python streets_backend/manage.py migrate
