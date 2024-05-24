@@ -12,6 +12,7 @@ from aboutus.views import (AboutUsViewSet, FederalTeamViewSet,
 from blog.views import BlogPostViewSet
 from contacts.views import ContactViewSet
 from events.views import EventViewSet, CoordinatesViewSet, EventLocationViewSet
+from myauth.views import MyAuth, MyUnAuth
 from streetculture.views import StreetCultureViewSet
 
 schema_view = get_schema_view(
@@ -44,9 +45,23 @@ router.register(settings.BASE_URL + '/v1/eventlocation', EventLocationViewSet, b
 router.register(settings.BASE_URL + '/v1/coordinates', CoordinatesViewSet, basename='coordinates')
 
 urlpatterns = [
-     path('admin/', admin.site.urls),
-     path('', include(router.urls)),
-     re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('admin/', admin.site.urls),
+    path('', include(router.urls)),
+    re_path(
+        r'^swagger(?P<format>\.json|\.yaml)$',
+        schema_view.without_ui(cache_timeout=0),
+        name='schema-json'
+    ),
+    path(
+        'swagger/',
+        schema_view.with_ui('swagger', cache_timeout=0),
+        name='schema-swagger-ui'
+    ),
+    path(
+        'redoc/',
+        schema_view.with_ui('redoc', cache_timeout=0),
+        name='schema-redoc'
+    ),
+    path('v1/login', MyAuth.as_view(), name='login'),
+    path('v1/logout', MyUnAuth.as_view(), name='logout'),
 ]
