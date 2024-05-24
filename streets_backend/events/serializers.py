@@ -6,7 +6,7 @@ class CoordinatesSerializer(serializers.ModelSerializer):
     """Сериализатор для модели Coordinates"""
     class Meta:
         model = Coordinates
-        fields = ['latitude', 'longitude']
+        fields = '__all__'
 
 
 class EventLocationSerializer(serializers.ModelSerializer):
@@ -15,7 +15,7 @@ class EventLocationSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = EventLocation
-        fields = ['name', 'description', 'address', 'coordinates']
+        fields = '__all__'
 
 
 class EventSerializer(serializers.ModelSerializer):
@@ -24,4 +24,4 @@ class EventSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Event
-        fields = ['id', 'name', 'time', 'date', 'place', 'description']
+        fields = '__all__'
