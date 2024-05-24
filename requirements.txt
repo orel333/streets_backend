@@ -1,4 +1,4 @@
-asgiref==3.8.1
+asgiref==3.4.1
 django
 django-filter==22.1.0
 djangorestframework-simplejwt
