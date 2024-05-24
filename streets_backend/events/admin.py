@@ -1,6 +1,4 @@
 from django.contrib import admin
-from events.models import Event, Coordinates, EventLocation
+from events.models import Event
 
 admin.site.register(Event)
-admin.site.register(EventLocation)
-admin.site.register(Coordinates)

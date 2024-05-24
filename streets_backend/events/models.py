@@ -1,44 +1,27 @@
 from django.db import models
 
 
-class Discipline(models.Model):
-    '''Модель дисциплины'''
-    name = models.CharField(
-        'Название дисциплины',
-        max_length=50,
-        unique=True
-    )
-
-    class Meta:
-        verbose_name = 'Дисциплина'
-        verbose_name_plural = 'Дисциплины'
-
-    def __str__(self):
-        return self.name
-
-
-class Region(models.Model):
-    '''Модель региона'''
-    name = models.CharField(
-        'Название региона',
-        max_length=255,
-        unique=True
-    )
-
-    class Meta:
-        verbose_name = 'Регион'
-        verbose_name_plural = 'Регионы'
-
-    def __str__(self):
-        return self.name
-
-
 class Event(models.Model):
     '''Модель мероприятия'''
     EVENT_TYPES = (
         ('competition', 'Соревнование'),
         ('training', 'Тренировка'),
         ('event', 'Мероприятие'),
+    )
+
+    DISCIPLINES = (
+        ('STREET-ART', 'STREET-ART'),
+        ('PARKOUR', 'PARKOUR'),
+        ('WORKOUT', 'WORKOUT'),
+        ('БМХ', 'БМХ'),
+        ('СКЕЙТБОРДИНГ', 'СКЕЙТБОРДИНГ'),
+        ('ТРЮКОВОЙ САМОКАТ', 'ТРЮКОВОЙ САМОКАТ'),
+        ('ФРИРАН', 'ФРИРАН'),
+        ('ТРИКИНГ', 'ТРИКИНГ'),
+        ('БРЕЙК-ДАНС', 'БРЕЙК-ДАНС'),
+        ('ГРАФФИТИ', 'ГРАФФИТИ'),
+        ('ДИДЖЕИНГ', 'ДИДЖЕИНГ'),
+        ('РЕП', 'РЕП'),
     )
 
     name = models.CharField(
@@ -58,20 +41,19 @@ class Event(models.Model):
     description = models.TextField(
         'Описание мероприятия'
     )
+    region = models.CharField(
+        'Регион',
+        max_length=255
+    )
     event_type = models.CharField(
         'Тип события',
         max_length=50,
         choices=EVENT_TYPES
     )
-    discipline = models.ForeignKey(
-        Discipline,
-        on_delete=models.CASCADE,
-        verbose_name='Дисциплина'
-    )
-    region = models.ForeignKey(
-        Region,
-        on_delete=models.CASCADE,
-        verbose_name='Регион проведения'
+    discipline = models.CharField(
+        'Дисциплина',
+        max_length=50,
+        choices=DISCIPLINES
     )
 
     class Meta:
@@ -83,47 +65,20 @@ class Event(models.Model):
 
 
 class Coordinates(models.Model):
-    """Модель для хранения координат места проведения мероприятия"""
-    latitude = models.DecimalField(
-        'Широта',
-        max_digits=9,
-        decimal_places=6
-    )
-    longitude = models.DecimalField(
-        'Долгота',max_digits=9,
-        decimal_places=6
-    )
-
-    class Meta:
-        verbose_name = 'Координаты'
-        verbose_name_plural = 'Координаты'
+    '''Модель координат'''
+    latitude = models.FloatField()
+    longitude = models.FloatField()
 
     def __str__(self):
-        return f"{self.latitude}, {self.longitude}"
+        return f'{self.latitude}, {self.longitude}'
 
 
 class EventLocation(models.Model):
-    """Модель места проведения мероприятия"""
-    name = models.CharField(
-        'Название места',
-        max_length=255
-    )
-    description = models.TextField(
-        'Описание места'
-    )
-    address = models.CharField(
-        'Адрес',
-        max_length=255
-    )
-    coordinates = models.ForeignKey(
-        Coordinates,
-        on_delete=models.CASCADE,
-        verbose_name='Координаты'
-    )
-
-    class Meta:
-        verbose_name = 'Место проведения мероприятия'
-        verbose_name_plural = 'Места проведения мероприятий'
+    '''Модель местоположения мероприятия'''
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    address = models.CharField(max_length=255)
+    coordinates = models.OneToOneField(Coordinates, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

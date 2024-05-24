@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from events.models import Event, Coordinates, EventLocation
-from events.serializers import (EventSerializer, 
-                                CoordinatesSerializer, 
+from events.serializers import (EventSerializer,
+                                CoordinatesSerializer,
                                 EventLocationSerializer)
 
 
