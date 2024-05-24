@@ -15,8 +15,9 @@ services:
     env_file:
       - ./.env
     build: /home/ubuntu/streets_backend/
-    command: python /app/streets_backend/manage.py runserver 0.0.0.0:8000
+    command: python /app/streets_backend/streets_backend/manage.py runserver 0.0.0.0:8000
     volumes:
+      - /home/ubuntu/streets_backend/:/app/streets_backend/
       - pg_data:/var/lib/postgresql/data
     ports:
       - 8000:8000
