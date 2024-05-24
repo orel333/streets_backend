@@ -1,7 +1,6 @@
 asgiref==3.8.1
 django
 django-filter==22.1.0
-dj
 djangorestframework-simplejwt
 djoser
 drf_yasg
