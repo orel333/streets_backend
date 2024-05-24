@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - feature/workflows
+      - develop
 
 jobs:
   build_and_push:
