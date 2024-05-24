@@ -29,7 +29,6 @@ jobs:
   deploy:
     needs: build_and_push
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop'
 
     steps:
     - name: executing remote ssh commands to deploy
@@ -40,12 +39,7 @@ jobs:
         password: ${{ secrets.REMOTE_SSH_PASSWORD }}
         script: |
           cd /home/ubuntu/streets_backend/infra
-          if [ "$(docker ps -q)" ]; then
-            docker stop $(docker ps -q)
-          fi
-          if [ "$(docker ps -aq)" ]; then
-            docker rm $(docker ps -aq)
-          fi
+          docker stop $(docker ps -a -q)
+          docker rm $(docker ps -a -q)
           docker-compose up -d
-          docker exec streets_backend python streets_backend/manage.py makemigrations
           docker exec streets_backend python streets_backend/manage.py migrate
