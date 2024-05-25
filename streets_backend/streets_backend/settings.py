@@ -5,16 +5,20 @@ from datetime import timedelta
 from dotenv import load_dotenv
 from pathlib import Path
 
-dotenv_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'infra', '.env')
+dotenv_path = os.path.join((os.path.dirname(os.path.dirname(__file__))), 'infra', '.env')
 load_dotenv(dotenv_path)
+
+print(dotenv_path)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-BASE_URL = os.getenv('BASE_URL')
+BASE_URL = os.getenv('BASE_URL', '')
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = bool(os.getenv('DEBUG', default=False))
+
+print(DEBUG)
 
 EMPTY_VALUE: str = '-пусто-'
 
@@ -71,16 +75,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'streets_backend.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB'),
-        'USER': os.getenv('POSTGRES_USER'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-        'HOST': 'localhost',
-        'PORT': '5432',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('POSTGRES_DB'),
+            'USER': os.getenv('POSTGRES_USER'),
+            'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {

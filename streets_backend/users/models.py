@@ -176,5 +176,9 @@ class UserRegion(models.Model):
     region = models.ForeignKey(Region, on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name = 'пользователь-регион'
+        verbose_name_plural = 'пользователи-регионы'
+
     def __str__(self):
         return '{} из {}'.format(self.user, self.region)

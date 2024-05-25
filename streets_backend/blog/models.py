@@ -1,5 +1,4 @@
 from django.db import models
-<<<<<<< HEAD
 
 from aboutus.models import Region
 from users.models import CustomUser
@@ -10,9 +9,6 @@ POST_CHOICES = (
     ('reg news', 'Региональная новость'),
     ('fed news', 'Федеральная новость')
 )
-=======
-from users.models import CustomUser
->>>>>>> 47dd3a8 (Настройка workflows для деплоя на сервер.)
 
 class BlogPost(models.Model):
     '''Модель для постов в блоге.'''
@@ -72,8 +68,8 @@ class PostRegion(models.Model):
     region = models.ForeignKey(Region, on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'Пост-регион'
-        verbose_name_plural = 'Посты-регионы'
+        verbose_name = 'пост-регион'
+        verbose_name_plural = 'посты-регионы'
 
     def __str__(self):
         return '{}, {}'.format(self.news, self.region)

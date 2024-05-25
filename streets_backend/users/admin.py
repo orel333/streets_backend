@@ -7,7 +7,7 @@ from django.contrib.auth.models import Group
 
 from streets_backend.settings import EMPTY_VALUE
 
-from .models import CustomUser
+from .models import CustomUser, UserRegion
 
 formatter = logging.Formatter(
     '%(asctime)s %(levelname)s %(message)s - строка %(lineno)s'
@@ -28,6 +28,7 @@ admin.site.unregister(Group)
 @admin.register(CustomUser)
 class UserAdminConfig(UserAdmin):
     list_display = (
+        'id',
         'username',
         'email',
         'first_name',
@@ -55,17 +56,6 @@ class UserAdminConfig(UserAdmin):
         }),
         ('Доступ', {
             'fields': ('role', 'is_staff', 'is_active', 'is_superuser')}),
-        ('Key fields', {
-            'fields': ('username', 'email', 'password')
-        }),
-        ('Personal info', {
-            'fields': (
-                'first_name', 'last_name'
-            ), 'classes': ('collapse',)
-        }),
-        ('Permissions', {
-            'fields': ('is_staff', 'is_active'),
-        }),
     )
 
     # readonly_fields = (
@@ -132,3 +122,9 @@ class UserAdminConfig(UserAdmin):
             logger.debug(f'user is staff: {obj.is_staff}')
         else:
             super().save_model(request, obj, form, change)
+
+
+@admin.register(UserRegion)
+class UserRegionAdminConfig(admin.ModelAdmin):
+    list_display = ('region', 'user')
+    add_fieldsets = (None, {'fields': ('region', 'user')})

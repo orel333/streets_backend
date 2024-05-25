@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('aboutus', '0001_initial'),
-        ('users', '0002_remove_customuser_surname_alter_customuser_bio_and_more'),
+        ('users', '0001_initial'),
     ]
 
     operations = [
