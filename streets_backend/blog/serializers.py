@@ -20,7 +20,8 @@ class BlogPostSerializer(serializers.ModelSerializer):
     region = serializers.SlugRelatedField(
         queryset=Region.objects.all(),
         many=True,
-        slug_field='name'
+        slug_field='name',
+        queryset=Region.objects.all()
     )
     relevance_date = serializers.DateField(
         default=(dt.date.today() + dt.timedelta(days=7))

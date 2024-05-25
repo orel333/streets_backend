@@ -1,18 +1,14 @@
-# Django 5.0.6
 import os
 
 from datetime import timedelta
 from dotenv import load_dotenv
 from pathlib import Path
+from pathlib import Path
 
-dotenv_path = os.path.join((os.path.dirname(os.path.dirname(__file__))), 'infra', '.env')
+dotenv_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'infra', '.env')
 load_dotenv(dotenv_path)
 
-print(dotenv_path)
-
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-BASE_URL = os.getenv('BASE_URL', '')
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
@@ -31,6 +27,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'drf_yasg',
+    'djoser',
+    'django_filters',
     'rest_framework',
     'rest_framework.authtoken',
     'myauth.apps.MyauthConfig',
@@ -39,10 +38,6 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'events.apps.EventsConfig',
     'streetculture.apps.StreetCultureConfig',
-    'aboutus.apps.AboutusConfig',
-    'drf_yasg',
-    'djoser',
-    'django_filters'
 ]
 
 MIDDLEWARE = [
