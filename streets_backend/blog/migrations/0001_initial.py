@@ -3,6 +3,8 @@
 from django.db import migrations, models
 import django.db.models.deletion
 
+import streets_backend.settings as settings
+
 
 class Migration(migrations.Migration):
 
