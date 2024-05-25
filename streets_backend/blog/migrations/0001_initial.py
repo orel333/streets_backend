@@ -4,6 +4,8 @@ import django.db.models.deletion
 from django.conf import settings
 from django.db import migrations, models
 
+import streets_backend.settings as settings
+
 
 class Migration(migrations.Migration):
 
