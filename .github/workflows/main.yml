@@ -29,7 +29,6 @@ jobs:
   deploy:
     needs: build_and_push
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop'
 
     steps:
     - name: executing remote ssh commands to deploy
