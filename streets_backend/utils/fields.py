@@ -1,4 +1,5 @@
 import base64
+import time
 
 from django.core.files.base import ContentFile
 from rest_framework import serializers
@@ -6,12 +7,12 @@ from rest_framework import serializers
 
 class Base64ImageField(serializers.ImageField):
     """Поле для преобразования base64 в графический файл."""
-    def to_internal_value(self, data, filename):
+    def to_internal_value(self, data):
         if isinstance(data, str) and data.startswith('data:image'):
             format, imgstr = data.split(';base64,')
             ext = format.split('/')[-1]
             data = ContentFile(
                 base64.b64decode(imgstr),
-                name=filename + '.' + ext
+                name='photo.' + ext
             )
         return super().to_internal_value(data)

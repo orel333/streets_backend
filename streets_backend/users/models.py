@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.core.validators import RegexValidator
 from django.db import models
 from rest_framework_simplejwt.tokens import AccessToken
-
+from aboutus.models import Region
 from streets_backend.settings import SECRET_KEY
 from .validators import validate_birthday
 
@@ -24,8 +24,10 @@ logger.disabled = False
 logger.debug('Logging from users.models has been started.')
 
 ROLE_CHOICES = (
-    ('promoter', 'Организатор'),
-    ('admin', 'Администратор')
+    ('admin', 'Администратор'),
+    ('fed manager', 'Федеральный руководитель'),
+    ('reg manager', 'Региональный руководитель'),
+    ('participant', 'Участник')
 )
 
 
@@ -45,7 +47,7 @@ class CustomUserManager(BaseUserManager):
         self,
         username,
         email,
-        role='admin',
+        role='participant',
         password=None,
         **other_fields
     ):
@@ -59,28 +61,24 @@ class CustomUserManager(BaseUserManager):
         user.is_staff = True
         user.set_password(password)
         user.save()
-        confirmation_code = user.confirmation_code
-        token = user.token
         if user.is_superuser is True:
             first_line = f'Создан суперпользователь {username}.'
         else:
             first_line = f'Создан пользователь {username}.'
-        print(
+        logger.debug(
             f'{first_line}\nЕго роль: {role}.'
-            f'Его токен: {token}\n'
-            f'Его confirmation_code для обновления токена:\n'
-            f'{confirmation_code}'
         )
         return user
 
 
 class CustomUser(AbstractUser):
     """Кастомная модель пользователя."""
+    objects = CustomUserManager()
     bio = models.TextField('Дополнительная информация', blank=True, null=True)
     role = models.CharField(
         'Роль',
         choices=ROLE_CHOICES,
-        default='promoter',
+        default='participant',
         max_length=16
     )
     email = models.EmailField(
@@ -105,28 +103,33 @@ class CustomUser(AbstractUser):
     last_name = models.CharField(
         'Фамилия',
         max_length=150,
-        null=True
+        null=True,
+        blank=True
     )
     first_name = models.CharField(
         'Имя',
         max_length=150,
-        null=True
+        null=True,
+        blank=True
     )
     third_name = models.CharField(
         'Отчество',
         max_length=150,
-        null=True
+        null=True,
+        blank=True
     )
     birth_date = models.DateField(
         'День рождения',
         validators=(validate_birthday,),
-        null=True
+        null=True,
+        blank=True
     )
     tg_nick = models.CharField(
         'Имя пользователя в телеграм',
         max_length=32,
         unique=True,
         null=True,
+        blank=True,
         validators=(
             RegexValidator(
                 regex=r'^@[\w\d_]{5,32}$',
@@ -141,11 +144,12 @@ class CustomUser(AbstractUser):
         max_length=11,
         unique=True,
         null=True,
+        blank=True,
         validators=(
             RegexValidator(
                 regex=r'^89\d{9}$',
                 message=(
-                    'Введите реальный мобильный телефон'
+                    'Введите реальный мобильный телефон '
                     'в формате 89XXXXXXXXX'
                 )
             ),
@@ -153,9 +157,10 @@ class CustomUser(AbstractUser):
     )
     avatar = models.ImageField(
         'Аватар',
-        null=True
+        null=True,
+        blank=True
     )
-    objects = CustomUserManager()
+    regions = models.ManyToManyField(Region, through='UserRegion')
 
     class Meta:
         ordering = ('-date_joined',)
@@ -165,21 +170,15 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return f'{self.username}: {self.email}, уровень доступа: {self.role}'
 
-    @property
-    def token(self):
-        token = AccessToken.for_user(self)
-        token['role'] = self.role
-        token['is_superuser'] = self.is_superuser
-        return token
 
-    @property
-    def confirmation_code(self):
-        dict = {
-            'username': self.username,
-            'email': self.email
-        }
-        return jwt.encode(
-            dict,
-            SECRET_KEY,
-            'HS256'
-        )
+class UserRegion(models.Model):
+    """Модель связи региона с пользователем."""
+    region = models.ForeignKey(Region, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'пользователь-регион'
+        verbose_name_plural = 'пользователи-регионы'
+
+    def __str__(self):
+        return '{} из {}'.format(self.user, self.region)

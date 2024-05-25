@@ -14,9 +14,11 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = bool(os.getenv('DEBUG', default=False))
 
+print(DEBUG)
+
 EMPTY_VALUE: str = '-пусто-'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',') if os.getenv('ALLOWED_HOSTS') else []
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -29,8 +31,8 @@ INSTALLED_APPS = [
     'djoser',
     'django_filters',
     'rest_framework',
-    'rest_framework_simplejwt',
-    'aboutus.apps.AboutusConfig',
+    'rest_framework.authtoken',
+    'myauth.apps.MyauthConfig',
     'contacts.apps.ContactsConfig',
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
@@ -68,16 +70,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'streets_backend.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB', 'default_db_name'),
-        'USER': os.getenv('POSTGRES_USER', 'default_user'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'default_password'),
-        'HOST': 'localhost',
-        'PORT': '5432',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('POSTGRES_DB'),
+            'USER': os.getenv('POSTGRES_USER'),
+            'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -120,23 +130,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
+        'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
     ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-
+    'DEFAULT_PAGINATION_CLASS': (
+        'rest_framework.pagination.PageNumberPagination'
+    ),
     'PAGE_SIZE': 5,
 
-}
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
-    'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
 AUTH_USER_MODEL = 'users.CustomUser'

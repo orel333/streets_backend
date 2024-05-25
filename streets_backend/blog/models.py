@@ -6,7 +6,8 @@ from users.models import CustomUser
 
 POST_CHOICES = (
     ('post', 'Пост'),
-    ('news', 'Новость')
+    ('reg news', 'Региональная новость'),
+    ('fed news', 'Федеральная новость')
 )
 
 class BlogPost(models.Model):
@@ -40,7 +41,7 @@ class BlogPost(models.Model):
         'Тип поста',
         choices=POST_CHOICES,
         default='post',
-        max_length=4
+        max_length=16
     )
     # TODO: обязательно при простановке новости
     relevance_date = models.DateField(
@@ -65,6 +66,10 @@ class PostRegion(models.Model):
     '''Модель связи поста с регионом.'''
     news = models.ForeignKey(BlogPost, on_delete=models.CASCADE)
     region = models.ForeignKey(Region, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'пост-регион'
+        verbose_name_plural = 'посты-регионы'
 
     def __str__(self):
         return '{}, {}'.format(self.news, self.region)

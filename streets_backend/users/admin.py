@@ -7,7 +7,7 @@ from django.contrib.auth.models import Group
 
 from streets_backend.settings import EMPTY_VALUE
 
-from .models import CustomUser
+from .models import CustomUser, UserRegion
 
 formatter = logging.Formatter(
     '%(asctime)s %(levelname)s %(message)s - строка %(lineno)s'
@@ -19,7 +19,7 @@ handler = logging.StreamHandler(sys.stdout)
 logger.addHandler(handler)
 handler.setFormatter(formatter)
 logger.disabled = False
-logger.debug('Логирование из users.admin запущено')
+logger.debug('Логирование из admin.users запущено')
 
 # отключение отображения в админ-панели раздела 'пользователи и группы'
 admin.site.unregister(Group)
@@ -28,32 +28,34 @@ admin.site.unregister(Group)
 @admin.register(CustomUser)
 class UserAdminConfig(UserAdmin):
     list_display = (
+        'id',
         'username',
         'email',
         'first_name',
         'last_name',
+        'role',
+        'is_active'
     )
     search_fields = ('username', 'email')
 
     list_filter = ('email', 'username', 'is_superuser', 'is_staff')
 
     fieldsets = (
-        ('Key fields', {
+        ('Ключевая информация', {
             'fields': ('avatar', 'username', 'email', 'password')
         }),
-        ('Personal info', {
+        ('Персональные данные', {
             'fields': (
                 'first_name', 'last_name', 'third_name', 'bio', 'birth_date'
             ), 'classes': ('collapse',)
         }),
-        ('Contact info', {
+        ('Контактная информация', {
             'fields': (
                 'tg_nick', 'phone'
             ), 'classes': ('collapse',)
         }),
-        ('Permissions', {
-            'fields': ('role', 'is_staff', 'is_active', 'is_superuser'),
-        }),
+        ('Доступ', {
+            'fields': ('role', 'is_staff', 'is_active', 'is_superuser')}),
     )
 
     # readonly_fields = (
@@ -68,6 +70,7 @@ class UserAdminConfig(UserAdmin):
         (None, {
             'classes': ('extrapretty',),
             'fields': (
+                'role',
                 'username',
                 'email',
                 'password1',
@@ -84,59 +87,44 @@ class UserAdminConfig(UserAdmin):
             logger.debug('The object was recognized as CustomUser instance')
             super().save_model(request, obj, form, change)
             user_role = obj.role
+            logger.debug('user\'s role: %s', user_role)
             username = obj.username
-            if user_role in ('admin', 'promoter'):
+            if user_role in (
+                'admin',
+                'fed manager',
+                'reg manager'
+            ):
                 obj.is_staff = True
             # на случай изменения объекта
             else:
                 obj.is_staff = False
             obj.save()
-            confirmation_code = obj.confirmation_code
-            token = obj.token
             if change:
                 if obj.is_superuser:
-                    pre_first_line = (f'\tВНИМАНИЕ! Объект был изменен на '
-                                      f'"суперпользователь {username}".')
+                    logger.debug(
+                        f'\tВНИМАНИЕ! Объект был изменен на '
+                        f'"суперпользователь {username}".')
                 else:
-                    pre_first_line = (f'\tВНИМАНИЕ! Объект был изменен на '
-                                      f'"пользователь {username}".')
-                first_line = (f'{pre_first_line}\n\tДля него были '
-                              'созданы новые коды доступа.')
+                    logger.debug(
+                        f'\tВНИМАНИЕ! Объект был изменен на '
+                        f'"пользователь {username}".'
+                    )
             else:
                 if obj.is_superuser:
-                    first_line = f'Создан суперпользователь {username}.'
+                    logger.debug(f'Создан суперпользователь {username}.')
                 else:
-                    first_line = f'Создан пользователь {username}.'
+                    logger.debug(f'Создан пользователь {username}.')
             # при запуске в производство поставить отправку по почте
             logger.debug(
-                f'{first_line}\nЕго роль: {user_role}.\n'
-                f'Его токен: {token}\n'
-                f'Его confirmation_code для обновления токена:\n'
-                f'{confirmation_code}'
+                f'Его роль: {user_role}.\n'
             )
             logger.debug(f'user is active: {obj.is_active}')
             logger.debug(f'user is staff: {obj.is_staff}')
         else:
             super().save_model(request, obj, form, change)
 
-    def get_fieldsets(self, request, obj=None):
-        """Кастомизированное отображение полей."""
-    
-    def has_module_permission(self, request):
-        return True
 
-    def has_delete_permission(self, request, obj=None):
-        """Разрешение на удаление."""
-        # TODO сделать проверку на авторство для удаления
-        if obj:
-            request_user = request.user
-            if isinstance(obj, CustomUser):
-            # return request.user.is_staff and not obj.is_staff
-                return (
-                    request_user.is_superuser or
-                    (request_user.role == 'admin' and obj.role == 'promoter')
-                )
-            return request_user.role in ('admin', 'promoter')
-    
-    def has_view_permission(self, request, obj=None):
-        return request.user.is_staff
+@admin.register(UserRegion)
+class UserRegionAdminConfig(admin.ModelAdmin):
+    list_display = ('region', 'user')
+    add_fieldsets = (None, {'fields': ('region', 'user')})
