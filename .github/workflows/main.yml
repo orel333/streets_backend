@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - develop
+      - feature/develop_for_deploy
 
 jobs:
   build_and_push:
@@ -22,7 +22,7 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
-        context: .
+        context: streets_backend
         push: true
         tags: d1g1tsdocker/streets_backend:latest
 
@@ -38,7 +38,8 @@ jobs:
         username: root
         password: ${{ secrets.REMOTE_SSH_PASSWORD }}
         script: |
-          cd /home/ubuntu/streets_backend/infra
+          cd /home/ubuntu/streets_backend/
           docker stop $(docker ps -a -q)
           docker rm $(docker ps -a -q)
-          docker-compose up -d
+          docker system prune -a -f
+          docker-compose -f docker-compose.production.yml up -d
