@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - develop
+      - feature/develop_for_deploy
 
 jobs:
   build_and_push:
@@ -38,7 +38,8 @@ jobs:
         username: root
         password: ${{ secrets.REMOTE_SSH_PASSWORD }}
         script: |
-          cd /home/ubuntu/streets_backend/infra
+          cd /home/ubuntu/streets_backend/
           docker stop $(docker ps -a -q)
           docker rm $(docker ps -a -q)
-          docker-compose up -d
+          docker system prune -a -f
+          docker-compose -f docker-compose.production.yml up -d
