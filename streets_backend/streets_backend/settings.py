@@ -147,4 +147,4 @@ REST_FRAMEWORK = {
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
-STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
