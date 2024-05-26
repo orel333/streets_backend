@@ -43,7 +43,7 @@ services:
       - static:/var/html/static/
       - static_front:/usr/share/nginx/html
     ports:
-      - "8000:80"
+      - "80:80"
       - "443:443"
 
 volumes:
