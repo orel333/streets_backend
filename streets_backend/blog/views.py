@@ -30,8 +30,6 @@ class BlogPostViewSet(viewsets.ModelViewSet):
         print(main_news)
         serializer = self.get_serializer(main_news)
         return Response(serializer.data)
-
-
     
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
