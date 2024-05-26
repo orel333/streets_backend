@@ -15,7 +15,9 @@ class BlogPost(models.Model):
     author = models.ForeignKey(
         CustomUser,
         on_delete=models.CASCADE,
-        verbose_name='Автор поста'
+        verbose_name='Автор поста',
+        # TODO убрать
+        null=True
     )
     title = models.CharField(
         'Заголовок',
