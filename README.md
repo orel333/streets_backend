@@ -1,6 +1,6 @@
   
-
-# ХАКАТОН ЯНДЕКС-МАСТЕРСКОЙ "УЛИЦЫ РОССИИ"
+# МАСТЕРСКАЯ ЯНДЕКС ПРАКТИКУМА
+# ХАКАТОН "УЛИЦЫ РОССИИ"
   
 
 ## Команда проекта:
@@ -39,7 +39,9 @@
 
 ## Ссылка на сервер проекта:
  
-http://95.163.230.143/
+Backend (Swagger) проекта: [http://95.163.230.143/swagger/](http://95.163.230.143/swagger/)
+
+Frontend проекта: [http://95.163.230.143:3000/home/](http://95.163.230.143:3000/home)
 
 ## Инструкция по запуску в локальном окружении.
  
@@ -104,7 +106,3 @@ docker-compose -f docker-compose.local.yml up
 - [Pillow](https://pillow.readthedocs.io/en/stable/)
 - [Python Decouple](https://pypi.org/project/python-decouple/)
 - [QR Code](https://pypi.org/project/qrcode/)
- 
-## Ссылка на Swagger проекта:
-
-http://95.163.230.143/swagger/
