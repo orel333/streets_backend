@@ -1,18 +1,8 @@
 version: '3.8'
 
 services:
-  db:
-    container_name: streets_backend_db
-    image: postgres:13-alpine
-    volumes:
-      - db-data:/var/lib/postgresql/data
-    env_file:
-      - .env
-
   streets_backend:
     container_name: streets_backend
-    depends_on:
-      - db
     restart: always
     image: d1g1tsdocker/streets_backend:latest
     volumes:
@@ -49,7 +39,6 @@ services:
       - "443:443"
 
 volumes:
-  db-data:
   static:
   static_front:
   static_frontend:
