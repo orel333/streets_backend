@@ -10,7 +10,7 @@ load_dotenv(dotenv_path)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = 'django-insecure-_cc7m@+c00f$$x58b@h_2*nifktdx#$$!al!_s_0888*w5c$$-u4n'
 
 DEBUG = bool(os.getenv('DEBUG', default=False))
 
@@ -72,24 +72,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'streets_backend.wsgi.application'
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.getenv('POSTGRES_DB'),
-            'USER': os.getenv('POSTGRES_USER'),
-            'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
-    }
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
