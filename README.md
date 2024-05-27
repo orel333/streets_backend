@@ -39,14 +39,40 @@
 
 ## Ссылка на сервер проекта:
  
-
 http://95.163.230.143/
-
 
 ## Инструкция по сборке и запуску
  
+1. Клонируем репозиторий:
+```
+git@github.com:hakaton-streetsOfRussia/streets_backend.git
+```
+2. В папке /infra/ создаем .env с данными, взятыми из .env.example.
 
-# TODO
+3. Переходим в папку /streets_backend/ и создаем виртуальное окружение на версии Python 3.10:
+```
+python3.10 -m venv venv
+```
+4. Запускаем виртуальное окружение:
+```
+source venv/Scripts/activate
+```
+4. Обновляем пакетный менеджер pip:
+```
+python -m pip install --upgrade pip
+```
+5. Устанавливаем зависимости:
+```
+pip install -r requirements.txt
+```
+6. Проводим миграции:
+```
+python manage.py migrate
+```
+7. Запускаем локальный сервер:
+```
+python manage.py runserver
+```
 
 ## Стэк технологий
 - ![Django](https://img.shields.io/badge/-Django-092E20?style=flat-square&logo=Django) Django 5.0.6
