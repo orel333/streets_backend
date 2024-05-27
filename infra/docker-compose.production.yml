@@ -16,6 +16,7 @@ services:
 
   streets_frontend:
     container_name: frontend-streets
+    restart: unless-stopped
     depends_on:
       - streets_backend
     image: d1g1tsdocker/frontend-streets:latest
