@@ -53,11 +53,16 @@ git@github.com:hakaton-streetsOfRussia/streets_backend.git
 ```
 2. В папке /infra/ создаем .env с данными, взятыми из .env.example.
 
-3. Переходим в папку /streets_backend/ и создаем виртуальное окружение на версии Python 3.10:
+3. Переходим в папку /streets_backend/(где Dockerfile и requirements.txt) и создаем виртуальное окружение на версии Python 3.10:
 ```
 python3.10 -m venv venv
 ```
 4. Запускаем виртуальное окружение:
+   На Linux:
+```
+source venv/bin/activate
+```
+  На Windows:
 ```
 source venv/Scripts/activate
 ```
@@ -89,7 +94,7 @@ git@github.com:hakaton-streetsOfRussia/streets_backend.git
 
 4. Запускаем сборку контейнера:
 ```
-docker-compose -f docker-compose.local.yml up
+docker-compose -f docker compose.local.yml up
 ```
 5. После запуска проект будет доступен по http://localhost:8000/
 
