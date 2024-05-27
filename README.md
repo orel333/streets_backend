@@ -41,7 +41,7 @@
  
 http://95.163.230.143/
 
-## Инструкция по сборке и запуску
+## Инструкция по запуску в локальном окружении.
  
 1. Клонируем репозиторий:
 ```
@@ -73,6 +73,21 @@ python manage.py migrate
 ```
 python manage.py runserver
 ```
+
+## Инструкция по запуску проекта в контейнере.
+1. Клонируем репозиторий:
+```
+git@github.com:hakaton-streetsOfRussia/streets_backend.git
+```
+2. В папке /infra/ создаем .env с данными, взятыми из .env.example.
+
+3. Переходим в папку /infra/
+
+4. Запускаем сборку контейнера:
+```
+docker-compose -f docker-compose.local.yml up
+```
+5. После запуска проект будет доступен по http://localhost:8000/
 
 ## Стэк технологий
 - ![Django](https://img.shields.io/badge/-Django-092E20?style=flat-square&logo=Django) Django 5.0.6
