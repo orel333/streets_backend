@@ -59,26 +59,26 @@ python3.10 -m venv venv
 ```
 4. Запускаем виртуальное окружение:
    На Linux:
-```
-source venv/bin/activate
-```
+    ```
+    source venv/bin/activate
+    ```
   На Windows:
-```
-source venv/Scripts/activate
-```
-4. Обновляем пакетный менеджер pip:
+    ```
+    source venv/Scripts/activate
+    ```
+5. Обновляем пакетный менеджер pip:
 ```
 python -m pip install --upgrade pip
 ```
-5. Устанавливаем зависимости:
+6. Устанавливаем зависимости:
 ```
 pip install -r requirements.txt
 ```
-6. Проводим миграции:
+7. Проводим миграции:
 ```
 python manage.py migrate
 ```
-7. Запускаем локальный сервер:
+8. Запускаем локальный сервер:
 ```
 python manage.py runserver
 ```
