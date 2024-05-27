@@ -58,7 +58,7 @@ git@github.com:hakaton-streetsOfRussia/streets_backend.git
 python3.10 -m venv venv
 ```
 4. Запускаем виртуальное окружение:
-   - На Linux:
+  - На Linux:
     ```
     source venv/bin/activate
     ```
