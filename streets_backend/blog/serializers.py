@@ -22,6 +22,9 @@ class BlogPostSerializer(serializers.ModelSerializer):
         many=True,
         slug_field='name',
     )
+    relevance_date = serializers.DateField(
+        default=(dt.date.today() + dt.timedelta(days=7))
+    )
     type = serializers.ChoiceField(choices=POST_CHOICES)
 
     class Meta:
@@ -35,6 +38,7 @@ class BlogPostSerializer(serializers.ModelSerializer):
             'updated_at',
             'image',
             'type',
+            'relevance_date',
             'region'
         ]
 

@@ -1,6 +1,8 @@
 import os
 
+from datetime import timedelta
 from dotenv import load_dotenv
+from pathlib import Path
 from pathlib import Path
 
 dotenv_path = os.path.join(
@@ -12,11 +14,11 @@ load_dotenv(dotenv_path)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-BASE_URL = os.getenv('BASE_URL')
-
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = bool(os.getenv('DEBUG', default=False))
+
+print(DEBUG)
 
 EMPTY_VALUE: str = '-пусто-'
 
@@ -139,10 +141,3 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'users.CustomUser'
 
 STATIC_ROOT = BASE_DIR / 'static'
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv('SENDER')
-EMAIL_HOST_PASSWORD = os.getenv('APP_MAIL_PASSWORD')
