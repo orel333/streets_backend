@@ -11,13 +11,14 @@ class BlogPostConfig(admin.ModelAdmin):
         'type',
         'title',
         'author',
+        'relevance_date',
         'created_at',
         'updated_at'
     )
     empty_value_display = EMPTY_VALUE
     fieldsets = (
         ('Ключевая информация', {
-            'fields': ('type', 'title', 'author')
+            'fields': ('type', 'title', 'author', 'relevance_date')
         }),
         ('Контент', {
             'fields': ('image', 'content')

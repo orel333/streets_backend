@@ -2,8 +2,6 @@ import logging
 import sys
 
 import jwt
-
-from random import randint
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.core.validators import RegexValidator
 from django.db import models
@@ -177,7 +175,6 @@ class CustomUser(AbstractUser):
         blank=True
     )
     regions = models.ManyToManyField(Region, through='UserRegion')
-    confirmation_code = models.IntegerField(null=True)
 
     class Meta:
         ordering = ('-date_joined',)
