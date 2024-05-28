@@ -18,8 +18,6 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = bool(os.getenv('DEBUG', default=False))
 
-print(DEBUG)
-
 EMPTY_VALUE: str = '-пусто-'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
