@@ -177,7 +177,7 @@ class CustomUser(AbstractUser):
         blank=True
     )
     regions = models.ManyToManyField(Region, through='UserRegion')
-    confirmation_code = models.IntegerField()
+    confirmation_code = models.IntegerField(null=True)
 
     class Meta:
         ordering = ('-date_joined',)

@@ -8,6 +8,13 @@ from django.core.mail import send_mail
 from rest_framework import permissions, status, viewsets, views
 from rest_framework.response import Response
 
+from random import randint
+
+from django.core.mail import send_mail
+from rest_framework import permissions, status, viewsets, views
+from rest_framework.response import Response
+
+from streets_backend.settings import BASE_URL, EMAIL_HOST_USER
 from users.models import CustomUser
 from users.serializers import (
     ManagementDetailSerializer,
@@ -45,10 +52,10 @@ class SignUpView(views.APIView):
                 f'Здравствуйте!\n\n\tВы (или кто-то другой) '
                 'запросили регистрацию на сайте \'Улицы России\'. '
                 'Для подтверждения регистрации пройдите по ссылке:'
-                f'на адрес: http://95.163.230.143:3000/v1/confirmation/'
+                f'http://{BASE_URL}/v1/confirmation/'
                 f'{username}/{confirmation_code}'
             )
-            mail_from = 'orel333app@gmail.com'
+            mail_from = EMAIL_HOST_USER + '@yandex.ru'
             mail_to = [email]
             send_mail(
                 mail_theme,
@@ -58,5 +65,4 @@ class SignUpView(views.APIView):
                 fail_silently=False
             )
             return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  

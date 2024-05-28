@@ -1,5 +1,9 @@
-# ХАКАТОН ЯНДЕКС-МАСТЕРСКОЙ "УЛИЦЫ РОССИИ"
   
+# МАСТЕРСКАЯ ЯНДЕКС ПРАКТИКУМА
+# ХАКАТОН "УЛИЦЫ РОССИИ"
+  
+
+
 
 ## Команда проекта:
  
@@ -37,7 +41,9 @@
 
 ## Ссылка на сервер проекта:
  
-http://95.163.230.143/
+Backend (Swagger) проекта: [http://95.163.230.143/swagger/](http://95.163.230.143/swagger/)
+
+Frontend проекта: [http://95.163.230.143:3000/home/](http://95.163.230.143:3000/home)
 
 ## Инструкция по запуску в локальном окружении.
  
@@ -47,27 +53,32 @@ git@github.com:hakaton-streetsOfRussia/streets_backend.git
 ```
 2. В папке /infra/ создаем .env с данными, взятыми из .env.example.
 
-3. Переходим в папку /streets_backend/ и создаем виртуальное окружение на версии Python 3.10:
+3. Переходим в папку /streets_backend/(где Dockerfile и requirements.txt) и создаем виртуальное окружение на версии Python 3.10:
 ```
 python3.10 -m venv venv
 ```
 4. Запускаем виртуальное окружение:
-```
-source venv/Scripts/activate
-```
-4. Обновляем пакетный менеджер pip:
+  - На Linux:
+    ```
+    source venv/bin/activate
+    ```
+  - На Windows:
+    ```
+    source venv/Scripts/activate
+    ```
+5. Обновляем пакетный менеджер pip:
 ```
 python -m pip install --upgrade pip
 ```
-5. Устанавливаем зависимости:
+6. Устанавливаем зависимости:
 ```
 pip install -r requirements.txt
 ```
-6. Проводим миграции:
+7. Проводим миграции:
 ```
 python manage.py migrate
 ```
-7. Запускаем локальный сервер:
+8. Запускаем локальный сервер:
 ```
 python manage.py runserver
 ```
@@ -83,7 +94,7 @@ git@github.com:hakaton-streetsOfRussia/streets_backend.git
 
 4. Запускаем сборку контейнера:
 ```
-docker-compose -f docker-compose.local.yml up
+docker-compose -f docker compose.local.yml up
 ```
 5. После запуска проект будет доступен по http://localhost:8000/
 
@@ -102,7 +113,3 @@ docker-compose -f docker-compose.local.yml up
 - [Pillow](https://pillow.readthedocs.io/en/stable/)
 - [Python Decouple](https://pypi.org/project/python-decouple/)
 - [QR Code](https://pypi.org/project/qrcode/)
- 
-## Ссылка на Swagger проекта:
-
-http://95.163.230.143/swagger/
