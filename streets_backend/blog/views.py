@@ -31,20 +31,6 @@ class BlogPostViewSet(viewsets.ModelViewSet):
         # теперь регионы должны определяться по ip
         client_ip = request.META.get('HTTP_CLIENT_IP') or DEFAULT_CLIENT_IP
         region_id = get_region_from_ip(client_ip) or 11
-        # request_user = request.user
-        # if isinstance(request_user, AnonymousUser):
-        #     region_ids = (11,)
-        # else:
-        #     region_ids = (
-        #         UserRegion.objects.filter(user=request.user).
-        #         values_list('region__id').distinct()
-        #     )
-        # region_ids = user_regions
-        # region_ids = []
-        # for user_region in user_regions:
-        #     region_ids.append(user_region.region.id)
-        # print(region_ids)
-        # print(BlogPost.objects.filter(type='reg news'))
         reg_news = BlogPost.objects.filter(type='reg news').filter(region=region_id)[:2]
         fed_news = BlogPost.objects.filter(type='fed news')[:2]
         main_news = reg_news | fed_news
